@@ -1,0 +1,50 @@
+---
+
+# Criar 3 usuarios em todas as maquinas: devops, developer e <nome> como variavel
+# instalar htop, vim, cowsay e fliglet em todas as maquinas
+# Criar arquivo com nome devops, contendo "sou devops". enviar para o dir /srv/ de todas as maquinas
+# arquivo index contendo "INFRA AGIL NA 4LINUX". enviar somente para a automation e com destino o diretório /srv/
+
+- name: Exercicio
+  hosts: all
+  vars:
+   - usuario: null
+  tasks:
+   - name: Criar usuarios
+     user:
+      name: "{{ item }}"
+     with_items:
+      - devops
+      - developer
+      - "{{ usuario }}"
+
+   - name: Instalar pacotes
+     package:
+      name:
+       - htop
+       - vim
+       - cowsay
+       - figlet
+
+#   - name: Criar arquivo devops
+#     copy:
+#      src: devops
+#      dest: /srv/devops 
+
+   - name: Criando arquivo devops
+     file:
+      path: /srv/devops
+      state: touch
+
+   - name: Colocando conteudo
+     blockinfile:
+      path: /srv/devops
+      block: |
+       sou devops
+       na 4linux
+
+   - name: Criar arquivo index
+     copy:
+      src: index
+      dest: /srv/index
+     when: ansible_hostname == "automation"

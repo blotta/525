@@ -1,0 +1,4 @@
+- name: Criando servidor web
+  hosts: all
+  roles:
+   - web

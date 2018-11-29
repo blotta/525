@@ -1,0 +1,7 @@
+---
+- name: Instalar Apache
+  include: apache_install.yaml
+
+- name: Adicionar Site ao Apache
+  include: add_apache_site.yaml
+

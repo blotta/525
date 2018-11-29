@@ -1,0 +1,29 @@
+---
+
+- name: Minha primeira playbook
+  hosts: '{{maquinas}}'
+  vars:
+   - maquinas: null
+   - usuario: null
+  tasks:
+   - name: gerenciando usuario devops
+     user:
+      name: '{{usuario}}'
+      state: present
+
+   - name: copiando arquivo para todas as maquinas
+     copy:
+      src: index
+      dest: /tmp/index
+
+   - name: Instalando primeiro programa
+     apt:
+      name: vim
+      state: present
+     ignore_errors: yes
+
+   - name: Instalando primeiro programa no centos
+     yum:
+      name: vim
+      state: present
+     ignore_errors: yes

@@ -1,0 +1,16 @@
+- name: Instalando pacotes padroes para debian
+  package:
+   name:
+    - htop
+    - vim
+    - sysstat
+    - cowsay
+  when: ansible_os_family == "Debian"
+
+- name: instalando pacotes padroes para o centos
+  package:
+   name:
+    - epel-release
+    - vim
+    - sysstat
+  when: ansible_os_family == "RedHat"
